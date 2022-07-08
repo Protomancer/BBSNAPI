@@ -1,0 +1,34 @@
+{
+  "name": "bbsnapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "gitPush": "git add . && git commit -m \"Updating BBSNAPI\" && git push",
+    "plant": "seeds",
+    "watch": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Protomancer/BBSNAPI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Protomancer/BBSNAPI/issues"
+  },
+  "homepage": "https://github.com/Protomancer/BBSNAPI#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "handlebars": "^4.7.7",
+    "inquirer": "^9.0.0",
+    "mongodb": "^4.7.0",
+    "mongoose": "^6.4.4",
+    "nodemon": "^2.0.19"
+  }
+}
