@@ -1,6 +1,5 @@
-const { Schema, Model, Types } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 
-const moment = require('moment');
 
 const ReactSchema = new Schema(
     {
@@ -12,7 +11,6 @@ const ReactSchema = new Schema(
     reactBody: {
         type: String,
         default: Date.now,
-        get: (createdAt) => moment(createdAt).format('MMM DD,YYYY [at] hh:mm a')
     }
     },
     {
@@ -33,7 +31,6 @@ const ThoughtSchema = new Schema(
     createdAt: {
         type: Date,
         default: Date.now,
-        get: (createdAt) => moment(createdAt).format('MMM DD, YYYY [at] hh:mm a')
     },
     username: {
         type: String,
@@ -53,3 +50,7 @@ const ThoughtSchema = new Schema(
 ThoughtSchema.virtual('reactCount').get(function() {
     return this.reaction.length;
 });
+
+const Thoughts = model('Thoughts', ThoughtSchema);
+
+module.exports = Thoughts;
