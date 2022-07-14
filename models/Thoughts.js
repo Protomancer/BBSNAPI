@@ -3,7 +3,7 @@ const { Schema, model, Types } = require('mongoose');
 
 const ReactSchema = new Schema(
     {
-    //custom id
+
     reactId: {
         type: Schema.Types.ObjectId,
         default: () => new Types.ObjectId()
@@ -28,11 +28,11 @@ const ThoughtSchema = new Schema(
         minlength: 1,
         maxlength: 300
     },
-    createdAt: {
+    created: {
         type: Date,
         default: Date.now,
     },
-    username: {
+    usernames: {
         type: String,
         required: true
     },
