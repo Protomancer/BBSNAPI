@@ -2,7 +2,7 @@ const {Thoughts, Users} = require('../models');
 
 const thoughtControl = {
 
-    ThoughtsCreate({params, body}, res) {
+    thoughtsCreate({params, body}, res) {
         Thoughts.create(body)
         .then(({_id}) => {
             return Users.findOneAndUpdate({ _id: params.userId}, {$push: {thoughts:_id}}, {new:true});
@@ -59,7 +59,7 @@ const thoughtControl = {
         .catch(err => res.json(err));
     },
 
-    ThoughtsDelete({params}, res) {
+    thoughtsDelete({params}, res) {
         Thoughts.findOneAndDelete({_id: params.id})
         .then(thoughtsDbData => {
             if(!thoughtsDbData) {
