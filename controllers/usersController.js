@@ -93,7 +93,7 @@ const userControl = {
       },
       {
         $push: {
-          Friends: params.friendsId,
+          friends: params.friendsId,
         },
       },
       {
