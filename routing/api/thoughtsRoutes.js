@@ -10,14 +10,21 @@ const {
     reactionDelete
 } = require('../../controllers/thoughtsController');
 
-router.route('/').get(thoughtsGather);
+router.route('/')
+    .get(thoughtsGather);
 
-router.route('/:id').get(thoughtsGatherById).put(thoughtsUpdate).delete(thoughtsDelete);
+router.route('/:id')
+    .get(thoughtsGatherById)
+    .put(thoughtsUpdate)
+    .delete(thoughtsDelete);
 
-router.route('/:userId').post(thoughtsCreate);
+router.route('/:userId')
+    .post(thoughtsCreate);
 
-router.route('/:thoughtId/reaction').post(reactionCreate);
+router.route('/:thoughtId/reaction')
+    .post(reactionCreate);
 
-router.route('/:thoughtId/reaction/:reactId').delete(reactionDelete);
+router.route('/:thoughtId/reaction/:reactId')
+    .delete(reactionDelete);
 
 module.exports = router;
