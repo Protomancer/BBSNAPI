@@ -1,12 +1,12 @@
 const { Users } = require("../models");
-
+//create a new user
 const userControl = {
   userCreate({ body }, res) {
     Users.create(body)
       .then((userDbData) => res.json(userDbData))
       .catch((err) => res.status(400).json(err));
   },
-
+// find all users
   userGatherAll(req, res) {
     Users.find({})
       .populate({
@@ -23,7 +23,7 @@ const userControl = {
         res.status(500).json(err);
       });
   },
-
+// find user by id
   userGatherById({ params }, res) {
     Users.findOne({ _id: params.id })
       .populate({
@@ -46,7 +46,7 @@ const userControl = {
         res.status(400).json(err);
       });
   },
-
+// update a user
   userUpdate({ params, body }, res) {
     Users.findOneAndUpdate(
       {
@@ -69,7 +69,7 @@ const userControl = {
       })
       .catch((err) => res.json(err));
   },
-
+//delete a user
   userDelete({ params }, res) {
     Users.findOneAndDelete({
       _id: params.id,
@@ -85,7 +85,7 @@ const userControl = {
       })
       .catch((err) => res.status(400).json(err));
   },
-
+//add friends by id
   addAFriend({ params }, res) {
     Users.findOneAndUpdate(
       {
@@ -116,7 +116,7 @@ const userControl = {
       })
       .catch((err) => res.json(err));
   },
-
+// delete friends
   deleteAFriend({params},res)
   {
     Users.findOneAndDelete(

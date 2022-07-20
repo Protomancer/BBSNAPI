@@ -1,7 +1,7 @@
 const router = require('express').router();
-
+//import api routes
 const innerApiRoutes = require('./api');
-
+// adds api tag
 router.use('/api',innerApiRoutes);
 
 router.use((req,res) => {
