@@ -34,7 +34,7 @@ const thoughtControl = {
         .select('-__v')
         .then(thoughtsDbData => {
             if(!thoughtsDbData) {
-                res.status(404).json({'Invalid Thought ID'});
+                res.status(404).json('Invalid Thought ID');
                 return;
             }
             res.json(thoughtsDbData)

@@ -1,4 +1,4 @@
-const router= require('express').router();
+const router= require('express').Router();
 // sets user and thoughts routes
 const userRoute = require('./usersRoutes');
 const thoughtRoute = require('./thoughtsRoutes');
