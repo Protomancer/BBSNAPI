@@ -11,8 +11,8 @@ app.use(express.static('public'));
 
 app.use(require('./routing'));
 
-mongoose.connect(process.env.MONGODB_URI || 'mongo://localhost/BBSNAPI',{
-    useFindAndModify: false,
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/BBSNAPI',{
+    // useFindAndModify: false,
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
