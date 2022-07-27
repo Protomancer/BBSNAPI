@@ -32,5 +32,8 @@
     "mongodb": "^4.8.0",
     "mongoose": "^6.4.4",
     "nodemon": "^2.0.19"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^8.5.0"
   }
 }

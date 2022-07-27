@@ -1,4 +1,4 @@
-const { Users } = require("../models");
+const { Users, Thoughts } = require("../models");
 //create a new user
 const userControl = {
   userCreate({ body }, res) {
@@ -6,24 +6,19 @@ const userControl = {
       .then((userDbData) => res.json(userDbData))
       .catch((err) => res.status(400).json(err));
   },
-// find all users
+  // find all users
   userGatherAll(req, res) {
     Users.find({})
-      .populate({
-        path: "thoughts",
-        select: "-__v",
-      })
       .populate({
         path: "friends",
         select: "-__v",
       })
-      .select("-__V")
       .then((userDbData) => res.json(userDbData))
       .catch((err) => {
         res.status(500).json(err);
       });
   },
-// find user by id
+  // find user by id
   userGatherById({ params }, res) {
     Users.findOne({ _id: params.id })
       .populate({
@@ -46,7 +41,7 @@ const userControl = {
         res.status(400).json(err);
       });
   },
-// update a user
+  // update a user
   userUpdate({ params, body }, res) {
     Users.findOneAndUpdate(
       {
@@ -69,7 +64,7 @@ const userControl = {
       })
       .catch((err) => res.json(err));
   },
-//delete a user
+  //delete a user
   userDelete({ params }, res) {
     Users.findOneAndDelete({
       _id: params.id,
@@ -85,21 +80,17 @@ const userControl = {
       })
       .catch((err) => res.status(400).json(err));
   },
-//add friends by id
+  //add friends by id
   addAFriend({ params }, res) {
-    Users.findOneAndUpdate(
-      {
+    Users.findOneAndUpdate({
         _id: params.id,
       },
       {
-        $push: {
-          friends: params.friendsId,
-        },
+        push: {friends: params.friendsId},
       },
       {
         new: true,
-      }
-    )
+      })
       .populate({
         path: "friends",
         select: "-__v",
@@ -116,40 +107,37 @@ const userControl = {
       })
       .catch((err) => res.json(err));
   },
-// delete friends
-  deleteAFriend({params},res)
-  {
+  // delete friends
+  deleteAFriend({ params }, res) {
     Users.findOneAndDelete(
-        {
-            _id: params.id
+      {
+        _id: params.id,
+      },
+      {
+        $pull: {
+          friends: params.friendsId,
         },
-        {
-            $pull:
-            {
-                friends:params.friendsId
-            }
-        },
-        {
-            new: true
-        }
+      },
+      {
+        new: true,
+      }
     )
-    .populate(
-        {
-            path: 'friends', select: '-__v'
-        }
-    )
-    .select('-__v')
-    .then(userDbData =>{
-        if(!userDbData) {
-            res.status(404).json({
-                message: 'Invalid User ID'
-            });
-            return;
+      .populate({
+        path: "friends",
+        select: "-__v",
+      })
+      .select("-__v")
+      .then((userDbData) => {
+        if (!userDbData) {
+          res.status(404).json({
+            message: "Invalid User ID",
+          });
+          return;
         }
         res.json(userDbData);
-    })
-    .catch(err => res.status(400).json(err));
-  }
+      })
+      .catch((err) => res.status(400).json(err));
+  },
 };
 
 module.exports = userControl;

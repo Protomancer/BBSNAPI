@@ -4,22 +4,23 @@ const thoughtControl = {
 //Create new thoughts
     thoughtsCreate({params, body}, res) {
         Thoughts.create(body)
-        .then(({_id}) => {
-            return Users.findOneAndUpdate({ _id: params.userId}, {$push: {thoughts:_id}}, {new:true});
+        .then((thoughtsDbData) => {
+            console.log(thoughtsDbData)
+            return Users.findOneAndUpdate({ _id: params.userId}, {$push: {thoughts: thoughtsDbData._id }}, {new:true});
         })
         .then(thoughtsDbData => {
             if(!thoughtsDbData) {
-                res.status(404).json({message: 'Invalid Thought ID'});
+                res.status(404).json({message: 'Invalid Thought'});
                 return;
             }
-            res.json(thoughtsDbData)
+            res.json(userDbdata)
         })
         .catch(err => res.json(err));
     },
 //get all thoughts
     thoughtsGather(req,res) {
         Thoughts.find({})
-        .populate({path: 'reactions', select: '-__v'})
+        .populate({path: 'reaction', select: '-__v'})
         .select('-__v')
         .then(thoughtsDbData => res.json(thoughtsDbData))
         .catch (err => {
@@ -46,7 +47,7 @@ const thoughtControl = {
     },
 //update a thought
     thoughtsUpdate({params, body}, res) {
-        Thoughts.findOneAndUpdate({_id: params.id}, body, {new: true, runValidators: true})
+        Thoughts.findOneAndUpdate({_id: params._id}, body, {new: true, runValidators: true})
         .populate({path: 'reactions', select: '-__v'})
         .select('-__v')
         .then(thoughtsDbData => {
