@@ -4,16 +4,15 @@ const thoughtControl = {
 //Create new thoughts
     thoughtsCreate({params, body}, res) {
         Thoughts.create(body)
-        .then((thoughtsDbData) => {
-            console.log(thoughtsDbData)
-            return Users.findOneAndUpdate({ _id: params.userId}, {$push: {thoughts: thoughtsDbData._id }}, {new:true});
+        .then((userDbData) => {
+            return Users.findOneAndUpdate({ _id: params._id}, {$push: {thoughts: userDbData._id }}, {new:true});
         })
         .then(thoughtsDbData => {
             if(!thoughtsDbData) {
                 res.status(404).json({message: 'Invalid Thought'});
                 return;
             }
-            res.json(userDbdata)
+            res.json(thoughtsDbData)
         })
         .catch(err => res.json(err));
     },

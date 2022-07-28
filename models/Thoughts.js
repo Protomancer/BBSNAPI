@@ -14,8 +14,8 @@ const ReactSchema = new Schema(
       required: true,
       },
     createdAt: {
-        type: Date, 
-        default: Date(),
+      type: Date, 
+      default: Date(),
     }
   },
   {

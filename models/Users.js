@@ -1,4 +1,4 @@
-const { Schema, model, } = require('mongoose');
+const { Schema, model, Types} = require('mongoose');
 
 const UserSchema = new Schema(
     {
@@ -16,7 +16,7 @@ const UserSchema = new Schema(
     },
     thoughts: [{
         type: String,
-        ref: 'Thoughts'
+        ref: 'ThoughtsDbdata'
     }],
     friends: [{
         type: String,
@@ -27,7 +27,7 @@ const UserSchema = new Schema(
         virtuals: true,
         getters: true,
     },
-    id: false
+    id: false, 
     }
 )
 
