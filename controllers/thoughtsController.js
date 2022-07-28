@@ -2,19 +2,23 @@ const {Thoughts, Users} = require('../models');
 // Thought controller setup
 const thoughtControl = {
 //Create new thoughts
-    thoughtsCreate({params, body}, res) {
-        Thoughts.create(body)
+    thoughtsCreate( req, res ) {
+        Thoughts.create(req.body)
         .then((userDbData) => {
-            return Users.findOneAndUpdate({ _id: params._id}, {$push: {thoughts: userDbData._id }}, {new:true});
+            return Users.findOneAndUpdate({ _id: req.body.userId}, {$push: {thoughts: userDbData._id }}, {new:true});
         })
         .then(thoughtsDbData => {
             if(!thoughtsDbData) {
-                res.status(404).json({message: 'Invalid Thought'});
-                return;
+                return res.status(404).json({message: 'Invalid Thought'});
+               
             }
-            res.json(thoughtsDbData)
+            res.json({message: 'Thought successfully created!'} )
         })
-        .catch(err => res.json(err));
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json(err);
+          });
+
     },
 //get all thoughts
     thoughtsGather(req,res) {
