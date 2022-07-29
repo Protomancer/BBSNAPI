@@ -20,8 +20,9 @@ const ReactSchema = new Schema(
   },
   {
     toJSON: {
-      getter: true,
+      virtuals: true,
     },
+    id: false,
   }
 );
 
