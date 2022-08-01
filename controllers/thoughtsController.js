@@ -77,7 +77,7 @@ const thoughtControl = {
 // create a reaction
     reactionCreate({params, body}, res) {
         Thoughts.findOneAndUpdate({_id: params.reactId}, {$push: {reaction: body}},{new: true, runValidators: true})
-        .populate({path: 'reactions', select: '-__v'})
+        .populate({path: 'reaction', select: '-__v'})
         .select('-__v')
         .then(thoughtsDbData => {
             if (!thoughtsDbData) {
