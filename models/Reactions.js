@@ -1,5 +1,7 @@
 const { Schema, model, Types } = require("mongoose");
 
+const Thoughts = require('./Thoughts');
+
 const ReactSchema = new Schema(
     {
       reactId: {
@@ -8,8 +10,11 @@ const ReactSchema = new Schema(
       },
       reactBody: {
         type: String,
+        required: true,
+        minlength: 1,
+        maxlength: 75,
       },
-      userReact: { 
+      username: { 
         type: String,
         required: true,
         },

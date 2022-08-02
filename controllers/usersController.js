@@ -86,7 +86,7 @@ const userControl = {
         _id: params.id,
       },
       {
-        push: {friends: params.friendsId},
+        $push: {friends: params.friendsId},
       },
       {
         new: true,

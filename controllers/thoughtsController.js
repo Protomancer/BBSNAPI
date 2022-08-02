@@ -75,10 +75,9 @@ const thoughtControl = {
         .catch(err => res.status(400).json(err));
     },
 // create a reaction
-    reactionCreate({params, body}, res) {
-        Thoughts.findOneAndUpdate({_id: params.reactId}, {$push: {reaction: body}},{new: true, runValidators: true})
-        .populate({path: 'reaction', select: '-__v'})
-        .select('-__v')
+    reactionCreate(req, res) {
+        console.log('Correct route')
+        Thoughts.findOneAndUpdate({_id: req.params.thoughtId}, {$addToSet: {reaction: req.body}},{runValidators: true, new: true})
         .then(thoughtsDbData => {
             if (!thoughtsDbData) {
                 res.status(404).json({message: 'Invalid Reaction ID'});
